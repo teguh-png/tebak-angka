@@ -39,29 +39,31 @@ SELAMAT BERMAIN !!!!!`);
       game = () => {
         while (poinPlayer1 + poinPlayer2 < 5) {
 
-      let p1 = prompt("Player 1 : Masukkan angka");
-          let p2 = prompt("Player 2 : Masukkan angka");
+          let p1 = (prompt("Player 1 : Masukkan angka"));
+          p1 = p1 === ""?null : Number(p1);
+          let p2 = (prompt("Player 2 : Masukkan angka"));
+          p2 = p2 === ""?null : Number(p2);
           let angka = Math.floor(Math.random() * 3) + 1;
 
-          if (p1 == "" || p2 == "") {
+          if (p1 === null || p2 === null) {
 
             alert("Salah satu player belum menebak");
             confirm("Ulangi ?");
 
-          } else if (p1 == p2 && p1 < 4 && p2 < 4) {
+          } else if (p1 === p2 && p1 < 4 && p2 < 4) {
 
             alert("Tebakan tidak boleh sama");
             confirm("Ulangi ?");
 
-          } else if (p1 == angka && p2 > 0 && p2 < 4){
+          } else if (p1 === angka && p2 > 0 && p2 < 4){
 
             poinPlayer1 = correctAnswer('p1', angka, poinPlayer1, poinPlayer2)
 
-          }else if (p2 == angka && p1 > 0 && p1 < 4){
+          }else if (p2 === angka && p1 > 0 && p1 < 4){
 
             poinPlayer2 = correctAnswer('p2', angka, poinPlayer1, poinPlayer2)
             
-          }else if (p1 != angka && p2 != angka && p1 < 4 && p2 < 4) {
+          }else if (p1 !== angka && p2 !== angka && p1 < 4 && p2 < 4) {
             alert("Tidak ada yang benar. Hasil seri");
             alert(`
             Nilai yang dicari : ${angka}
@@ -87,6 +89,7 @@ SELAMAT BERMAIN !!!!!`);
 
         }
       };
+
 
       game();
 
