@@ -15,65 +15,81 @@ dan kamu akan bermain dalam 5 ronde.
 player yang berhasil mengumpulkan tebakan terbanyak akan menang
 SELAMAT BERMAIN !!!!!`);
 
-      let h1 = 0;
-      let h2 = 0;
+      let poinPlayer1 = 0;
+      let poinPlayer2 = 0;
+
+      correctAnswer = (player, answer, currentPointP1, currentPointP2) => {
+        const playerName = player === 'p1' ? 'Player 1': 'Player 2';
+
+        player === 'p1' ? currentPointP1++ : currentPointP2++;
+
+        alert(`${playerName} Win`);
+        alert(`
+        Nilai yang dicari : ${answer}
+        ----------------------------
+        - Player 1 : ${currentPointP1}
+        - Player 2 : ${currentPointP2}
+        `);
+            if (currentPointP1 + currentPointP2 + 1 < 6) {
+              alert(`Ronde ${currentPointP1 + currentPointP2 + 1} ?`);
+            }
+        return player === 'p1' ? currentPointP1 : currentPointP2;
+      }
+
       game = () => {
-        while (h1 + h2 < 5) {
-          let p1 = prompt("Player 1 : Masukkan angka");
+        while (poinPlayer1 + poinPlayer2 < 5) {
+
+      let p1 = prompt("Player 1 : Masukkan angka");
           let p2 = prompt("Player 2 : Masukkan angka");
           let angka = Math.floor(Math.random() * 3) + 1;
 
           if (p1 == "" || p2 == "") {
+
             alert("Salah satu player belum menebak");
             confirm("Ulangi ?");
+
           } else if (p1 == p2 && p1 < 4 && p2 < 4) {
+
             alert("Tebakan tidak boleh sama");
             confirm("Ulangi ?");
-          } else if (p1 == angka && p2 > 0 && p2 < 4) {
-            h1++;
-            alert("Player 1 win");
-            alert(`
-Nilai yang dicari : ${angka}
-----------------------------
-- Player 1 : ${h1}
-- Player 2 : ${h2}
-            `);
-            if (h1 + h2 + 1 < 6) {
-              alert(`Ronde ${h1 + h2 + 1} ?`);
-            }
-          } else if (p2 == angka && p1 > 0 && p2 < 4) {
-            h2++;
-            alert("Player 2 win");
-            alert(`
-Nilai yang dicari : ${angka}
-----------------------------
-- Player 1 : ${h1}
-- Player 2 : ${h2}
-            `);
-            if (h1 + h2 + 1 < 6) {
-              alert(`Ronde ${h1 + h2 + 1} ?`);
-            }
-          } else if (p1 != angka && p2 != angka && p1 < 4 && p2 < 4) {
+
+          } else if (p1 == angka && p2 > 0 && p2 < 4){
+
+            poinPlayer1 = correctAnswer('p1', angka, poinPlayer1, poinPlayer2)
+
+          }else if (p2 == angka && p1 > 0 && p1 < 4){
+
+            poinPlayer2 = correctAnswer('p2', angka, poinPlayer1, poinPlayer2)
+            
+          }else if (p1 != angka && p2 != angka && p1 < 4 && p2 < 4) {
             alert("Tidak ada yang benar. Hasil seri");
             alert(`
-Nilai yang dicari : ${angka}
-----------------------------
-- Player 1 : ${h1}
-- Player 2 : ${h2}
+            Nilai yang dicari : ${angka}
+            ----------------------------
+            - Player 1 : ${poinPlayer1}
+            - Player 2 : ${poinPlayer2}
             `);
+
           } else {
+
             alert("angka tidak boleh kurang dari 1 dan lebih dari 3");
             confirm("Ulangi ?");
+            
           }
         }
-        if (h1 > h2) {
+        if (poinPlayer1 > poinPlayer2) {
+
           alert("Good Jobs player 1");
+
         } else {
+
           alert("Good Jobs Player 2");
+
         }
       };
 
       game();
+
     </script>
   </body>
 </html>
